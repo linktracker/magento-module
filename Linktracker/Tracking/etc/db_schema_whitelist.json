@@ -1,0 +1,20 @@
+{
+    "linktracker_tracking": {
+        "column": {
+            "entity_id": true,
+            "order_id": true,
+            "order_increment_id": true,
+            "grand_total": true,
+            "created_at": true,
+            "status": true,
+            "tracking_id": true
+        },
+        "index": {
+            "LINKTRACKER_TRACKING_STATUS": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "LINKTRACKER_TRACKING_ORDER_ID": true
+        }
+    }
+}

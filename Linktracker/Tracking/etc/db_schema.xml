@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="linktracker_tracking" resource="default" engine="innodb" comment="Linktracker Tracking">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true"
+                comment="Entity ID"/>
+        <column xsi:type="varchar" name="tracking_id" nullable="true" length="32" comment="Tracking ID"/>
+        <column xsi:type="int" name="order_id" padding="10" unsigned="true" nullable="false" identity="false"
+                comment="Order ID"/>
+        <column xsi:type="varchar" name="order_increment_id" nullable="true" length="32" comment="Order Increment ID"/>
+        <column xsi:type="decimal" name="grand_total" scale="4" precision="20" unsigned="false" nullable="true"
+                comment="Grand Total"/>
+        <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
+                comment="Created At"/>
+        <column xsi:type="tinyint" name="status" padding="2" unsigned="true" nullable="false" identity="false"
+                comment="Status"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="LINKTRACKER_TRACKING_ORDER_ID">
+            <column name="order_id"/>
+        </constraint>
+        <index referenceId="LINKTRACKER_TRACKING_STATUS" indexType="btree">
+            <column name="status"/>
+        </index>
+    </table>
+</schema>
