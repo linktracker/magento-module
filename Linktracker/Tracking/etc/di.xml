@@ -16,8 +16,4 @@
             </argument>
         </arguments>
     </type>
-
-    <type name="Magento\Catalog\Controller\Product\View">
-        <plugin name="linktracker_traking_product_request" type="Linktracker\Tracking\Plugin\ProductRequest" sortOrder="1" disabled="false"/>
-    </type>
 </config>

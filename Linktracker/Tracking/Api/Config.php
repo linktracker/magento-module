@@ -21,5 +21,5 @@ interface Config
     const COOKIE_NAME = 'ltt-cookie';
     const COOKIE_DURATION = 86400; //in seconds, one day
 
-    const TRAKING_REQUEST_PARAMETER = 'tracking';
+    const TRAKING_REQUEST_PARAMETER = 'lt_clickid';
 }

@@ -4,4 +4,9 @@
         <observer name="linktracker_checkout_submit_all_after" instance="Linktracker\Tracking\Observer\Track" />
     </event>
 
+    <event name="controller_action_predispatch">
+        <observer name="linktracker_redirect" instance="Linktracker\Tracking\Observer\Redirect" />
+    </event>
+
+
 </config>
