@@ -2,7 +2,7 @@
 
 namespace Linktracker\Tracking\Model;
 
-use Linktracker\Tracking\Api\Config as StatusConfig;
+use Linktracker\Tracking\Api\ConfigInterface as StatusConfig;
 
 class BatchSend implements BatchSendInterface
 {

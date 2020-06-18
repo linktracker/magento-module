@@ -2,7 +2,7 @@
 
 namespace Linktracker\Tracking\Model;
 
-use Linktracker\Tracking\Api\Config as CookieConfig;
+use Linktracker\Tracking\Api\ConfigInterface as CookieConfig;
 use Magento\Framework\Session\Config\ConfigInterface;
 use Magento\Framework\Stdlib\Cookie\CookieMetadata;
 use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;

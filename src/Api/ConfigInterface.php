@@ -2,7 +2,7 @@
 
 namespace Linktracker\Tracking\Api;
 
-interface Config
+interface ConfigInterface
 {
     public const TRACKING_TABLE = 'linktracker_tracking';
 

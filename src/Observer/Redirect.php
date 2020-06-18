@@ -2,7 +2,7 @@
 
 namespace Linktracker\Tracking\Observer;
 
-use Linktracker\Tracking\Api\Config as TrackingConfig;
+use Linktracker\Tracking\Api\ConfigInterface as TrackingConfig;
 use Linktracker\Tracking\Model\CookieInterface;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;

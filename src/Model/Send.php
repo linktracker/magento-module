@@ -2,7 +2,7 @@
 
 namespace Linktracker\Tracking\Model;
 
-use Linktracker\Tracking\Api\Config as TrackingConfig;
+use Linktracker\Tracking\Api\ConfigInterface as TrackingConfig;
 
 class Send
 {

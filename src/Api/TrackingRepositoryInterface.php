@@ -34,4 +34,22 @@ interface TrackingRepositoryInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
 
+    /**
+     * Create a new tracking object
+     *
+     * @param string $trackingCode
+     * @param int $orderId
+     * @param string $orderIncrementId
+     * @param float $amount
+     * @param int $status
+     * @return TrackingInterface
+     */
+    public function createTracking(
+            string $trackingCode,
+            int $orderId,
+            string $orderIncrementId = '',
+            float $amount = 0.0,
+            int $status = ConfigInterface::STATUS_NEW
+    ): TrackingInterface;
+
 }

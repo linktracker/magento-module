@@ -2,21 +2,21 @@
 
 namespace Linktracker\Tracking\Model;
 
+use Linktracker\Tracking\Api\ConfigInterface;
 use Linktracker\Tracking\Api\TrackingRepositoryInterface;
 use Linktracker\Tracking\Api\Data\TrackingInterface;
-use Linktracker\Tracking\Api\Data\TrackingSearchResultInterface;
 use Linktracker\Tracking\Api\Data\TrackingSearchResultInterfaceFactory;
+use Linktracker\Tracking\Model\ResourceModel\Tracking as TrackingResource;
 use Linktracker\Tracking\Model\ResourceModel\Tracking\CollectionFactory as TrackingCollectionFactory;
 use Linktracker\Tracking\Model\ResourceModel\Tracking\Collection;
 use Magento\Framework\Api\SearchCriteria\CollectionProcessorInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
-use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 class TrackingRepository implements TrackingRepositoryInterface
 {
     /**
-     * @var TrackingFactory
+     * @var TrackingInterfaceFactory
      */
     protected $trackingFactory;
 
@@ -41,8 +41,8 @@ class TrackingRepository implements TrackingRepositoryInterface
     protected $resourceModel;
 
     public function __construct(
-        TrackingFactory $trackingFactory,
-        \Linktracker\Tracking\Model\ResourceModel\Tracking $resourceModel,
+        TrackingInterfaceFactory $trackingFactory,
+        TrackingResource $resourceModel,
         TrackingCollectionFactory $trackingCollectionFactory,
         TrackingSearchResultInterfaceFactory $trackingSearchResultInterfaceFactory,
         CollectionProcessorInterface $collectionProcessor
@@ -88,7 +88,7 @@ class TrackingRepository implements TrackingRepositoryInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria)
     {
-        /* @var \Linktracker\Tracking\Model\ResourceModel\Tracking\Collection $collection */
+        /* @var Collection $collection */
         $collection = $this->trackingCollectionFactory->create();
         $this->collectionProcessor->process($searchCriteria, $collection);
         $searchResults = $this->trackingSearchResultInterfaceFactory->create();
@@ -97,5 +97,28 @@ class TrackingRepository implements TrackingRepositoryInterface
         $searchResults->setItems($collection->getItems());
 
         return $searchResults;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createTracking(
+        string $trackingCode,
+        int $orderId,
+        string $orderIncrementId = '',
+        float $amount = 0.0,
+        int $status = ConfigInterface::STATUS_NEW
+    ): TrackingInterface {
+
+        /* @var TrackingInterface $tracking */
+        $tracking = $this->trackingFactory->create();
+
+        $tracking->setTrackingId($trackingCode);
+        $tracking->setOrderId($orderId);
+        $tracking->setOrderIncrementId($orderIncrementId);
+        $tracking->setGrandTotal($amount);
+        $tracking->setStatus($status);
+
+        return $tracking;
     }
 }
