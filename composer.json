@@ -19,5 +19,14 @@
         "psr-4": {
             "Linktracker\\Tracking\\": "tests/"
         }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
     }
 }
