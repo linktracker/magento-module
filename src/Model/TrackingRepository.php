@@ -13,7 +13,7 @@ use Magento\Framework\Api\SearchCriteriaInterface;
 use Magento\Framework\Api\SortOrder;
 use Magento\Framework\Exception\NoSuchEntityException;
 
-class TrackingRepository implements \Linktracker\Tracking\Api\TrackingRepositoryInterface
+class TrackingRepository implements TrackingRepositoryInterface
 {
     /**
      * @var TrackingFactory

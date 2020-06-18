@@ -2,33 +2,36 @@
 
 namespace Linktracker\Tracking\Api;
 
+use Linktracker\Tracking\Api\Data\TrackingSearchResultInterface;
 use Magento\Framework\Api\SearchCriteriaInterface;
 use Linktracker\Tracking\Api\Data\TrackingInterface;
+use Magento\Framework\Exception\NoSuchEntityException;
 
 interface TrackingRepositoryInterface
 {
     /**
      * @param int $id
-     * @return \Linktracker\Tracking\Api\Data\TrackingInterface
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @return TrackingInterface
+     * @throws NoSuchEntityException
      */
     public function getById($id);
 
     /**
-     * @param \Linktracker\Tracking\Api\Data\TrackingInterface $tracking
-     * @return \Linktracker\Tracking\Api\Data\TrackingInterface
+     * @param TrackingInterface $tracking
+     * @return TrackingInterface
      */
     public function save(TrackingInterface $tracking);
 
     /**
-     * @param \Linktracker\Tracking\Api\Data\TrackingInterface $tracking
+     * @param TrackingInterface $tracking
      * @return void
      */
     public function delete(TrackingInterface $tracking);
 
     /**
-     * @param \Magento\Framework\Api\SearchCriteriaInterface $searchCriteria
-     * @return \Linktracker\Tracking\Api\Data\TrackingSearchResultInterface
+     * @param SearchCriteriaInterface $searchCriteria
+     * @return TrackingSearchResultInterface
      */
     public function getList(SearchCriteriaInterface $searchCriteria);
+
 }

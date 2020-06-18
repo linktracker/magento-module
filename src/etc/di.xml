@@ -8,6 +8,7 @@
     <preference for="Linktracker\Tracking\Api\TrackingClientInterface" type="Linktracker\Tracking\Model\Client"/>
 
     <preference for="Linktracker\Tracking\Model\BatchSendInterface" type="Linktracker\Tracking\Model\BatchSend" />
+    <preference for="Linktracker\Tracking\Model\CookieInterface" type="Linktracker\Tracking\Model\Cookie" />
 
     <type name="Magento\Framework\Console\CommandList">
         <arguments>

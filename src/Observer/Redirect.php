@@ -3,14 +3,16 @@
 namespace Linktracker\Tracking\Observer;
 
 use Linktracker\Tracking\Api\Config as TrackingConfig;
+use Linktracker\Tracking\Model\CookieInterface;
 use Magento\Framework\Event\Observer;
+use Magento\Framework\Event\ObserverInterface;
 
-class Redirect implements \Magento\Framework\Event\ObserverInterface
+class Redirect implements ObserverInterface
 {
     /**
-     * @var \Linktracker\Tracking\Model\Cookie
+     * @var CookieInterface
      */
-    protected $cookie;
+    private $cookie;
 
     private $response;
 
@@ -19,7 +21,7 @@ class Redirect implements \Magento\Framework\Event\ObserverInterface
     private $doRedirect = true;
 
     public function __construct(
-        \Linktracker\Tracking\Model\Cookie $cookie
+        CookieInterface $cookie
     ) {
         $this->cookie = $cookie;
     }
