@@ -22,12 +22,13 @@ class Client implements \Linktracker\Tracking\Api\TrackingClientInterface
     {
         $ctx = stream_context_create(array('http'=>
             array(
-                'timeout' => TIME_OUT
+                'timeout' => self::TIME_OUT
             )
         ));
 
         try {
-            return file_get_contents($url, false, $ctx) === false ? false : true;
+            $urlString = $url . '?' . http_build_query($data);
+            return file_get_contents($urlString, false, $ctx) === false ? false : true;
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
             return false;

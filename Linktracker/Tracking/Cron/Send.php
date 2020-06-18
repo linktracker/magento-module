@@ -12,21 +12,21 @@ class Send
     protected $logger;
 
     /**
-     * @var \Linktracker\Tracking\Model\Info
+     * @var \Linktracker\Tracking\Model\BatchSend
      */
-    protected $info;
+    protected $batchSend;
 
     /**
      * Send constructor.
-     * @param \Linktracker\Tracking\Model\Info $info
+     * @param \Linktracker\Tracking\Model\BatchSend $batchSend
      * @param LoggerInterface $logger
      */
     public function __construct
     (
-        \Linktracker\Tracking\Model\Info $info,
+        \Linktracker\Tracking\Model\BatchSend $batchSend,
         LoggerInterface $logger
     ) {
-        $this->info = $info;
+        $this->batchSend = $batchSend;
         $this->logger = $logger;
     }
 
@@ -34,7 +34,7 @@ class Send
     {
         $this->logger->info('Start sending tracking information using cron');
 
-        $this->info->execute();
+        $this->batchSend->execute();
 
         $this->logger->info('Finished sending tracking information using cron');
     }

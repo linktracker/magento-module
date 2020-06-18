@@ -2,7 +2,7 @@
 
 namespace Linktracker\Tracking\Model;
 
-use Linktracker\Tracking\Api\Config as StatusConfig;
+use Linktracker\Tracking\Api\Config as TrackingConfig;
 
 class Send
 {
@@ -24,11 +24,18 @@ class Send
         $this->trackingClient = $trackingClient;
     }
 
-    public function sendTrackingData(array $items): void {
-
+    public function sendTrackingData(string $trackerId, string $orderId, float $orderAmount): bool
+    {
+        return $this->trackingClient->send($this->getTrakingUrl(), [
+                TrackingConfig::TRACKING_REQUEST_PARAMETER => $trackerId,
+                'order_id' => $orderId,
+                'order_amount' => $orderAmount
+            ]
+        );
     }
 
-    public function getTrakingUrl(): string {
+    public function getTrakingUrl(): string
+    {
         return (string)$this->config->getGeneralConfigValue('tracking_url');
     }
 }

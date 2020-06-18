@@ -3,25 +3,24 @@
 namespace Linktracker\Tracking\Api\Data;
 
 use Magento\Framework\Api\ExtensibleDataInterface;
-use Magento\Tests\NamingConvention\true\float;
 
 interface TrackingInterface extends ExtensibleDataInterface
 {
-    public function getId(): int;
+    public function getId();
 
     public function setId($value);
 
-    public function getTrackingId(): int;
+    public function getTrackingId(): string;
 
-    public function setTrackingId(int $trackingId): void;
+    public function setTrackingId(string $trackingId): void;
 
     public function getOrderId(): int;
 
     public function setOrderId(int $orderId): void;
 
-    public function getIncrementedOrderId(): string;
+    public function getOrderIncrementId(): string;
 
-    public function setIncrementedOrderId(string $incrementedOrderId): void;
+    public function setOrderIncrementId(string $OrderIncrementedId): void;
 
     public function getGrandTotal(): float;
 

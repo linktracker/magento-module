@@ -35,8 +35,14 @@ class TrackingRepository implements \Linktracker\Tracking\Api\TrackingRepository
      */
     protected $collectionProcessor;
 
+    /**
+     * @var Linktracker\Tracking\Model\ResourceModel\Tracking
+     */
+    protected $resourceModel;
+
     public function __construct(
         TrackingFactory $trackingFactory,
+        \Linktracker\Tracking\Model\ResourceModel\Tracking $resourceModel,
         TrackingCollectionFactory $trackingCollectionFactory,
         TrackingSearchResultInterfaceFactory $trackingSearchResultInterfaceFactory,
         CollectionProcessorInterface $collectionProcessor
@@ -45,6 +51,7 @@ class TrackingRepository implements \Linktracker\Tracking\Api\TrackingRepository
         $this->trackingCollectionFactory = $trackingCollectionFactory;
         $this->trackingSearchResultInterfaceFactory = $trackingSearchResultInterfaceFactory;
         $this->collectionProcessor = $collectionProcessor;
+        $this->resourceModel = $resourceModel;
     }
     /**
      * @inheritDoc
@@ -53,8 +60,8 @@ class TrackingRepository implements \Linktracker\Tracking\Api\TrackingRepository
     {
         /* @var \Linktracker\Tracking\Model\Tracking $tracking */
         $tracking = $this->trackingFactory->create();
-        $tracking>getResource()->load($tracking, $id);
-        if (! $tracking>getId()) {
+        $tracking->load($id);
+        if (! $tracking->getId()) {
             throw new NoSuchEntityException(__('Unable to find tracking with ID "%1"', $id));
         }
         return $tracking;
@@ -65,8 +72,7 @@ class TrackingRepository implements \Linktracker\Tracking\Api\TrackingRepository
      */
     public function save(TrackingInterface $tracking)
     {
-        $tracking>getResource()->save($tracking);
-        return $tracking;
+        return $this->resourceModel->save($tracking);
     }
 
     /**
@@ -74,7 +80,7 @@ class TrackingRepository implements \Linktracker\Tracking\Api\TrackingRepository
      */
     public function delete(TrackingInterface $tracking)
     {
-        $tracking>getResource()->delete($tracking);
+        $this->resourceModel->delete($tracking);
     }
 
     /**

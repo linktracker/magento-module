@@ -33,7 +33,7 @@ class Redirect implements \Magento\Framework\Event\ObserverInterface
             return;
         }
 
-        $trackerId = $this->request->getParam(TrackingConfig::TRAKING_REQUEST_PARAMETER);
+        $trackerId = $this->request->getParam(TrackingConfig::TRACKING_REQUEST_PARAMETER);
         if (! $trackerId || ! $this->doRedirect) {
             return;
         }
