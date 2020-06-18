@@ -4,22 +4,16 @@ namespace Linktracker\Tracking\Api;
 
 interface Config
 {
-    const TRACKING_TABLE = 'linktracker_tracking';
+    public const TRACKING_TABLE = 'linktracker_tracking';
 
-    const STATUS_NEW = 1;
-    const STATUS_SEND = 2;
-    const STATUS_RESEND = 3;
-    const STATUS_FAILED = 4;
+    public const STATUS_NEW = 1;
+    public const STATUS_SEND = 2;
+    public const STATUS_RESEND = 3;
+    public const STATUS_FAILED = 4;
 
-    const STATUS = [
-        self::STATUS_CREATED => 'new',
-        self::STATUS_SEND => 'send',
-        self::STATUS_RESEND => 'resend',
-        self::STATUS_FAILED => 'failed',
-    ];
+    public const COOKIE_NAME = 'ltt-cookie';
+    public const COOKIE_DURATION = 86400 * 30; //in seconds, 30 days
 
-    const COOKIE_NAME = 'ltt-cookie';
-    const COOKIE_DURATION = 86400; //in seconds, one day
+    public const TRACKING_REQUEST_PARAMETER = 'lt_clickid';
 
-    const TRACKING_REQUEST_PARAMETER = 'lt_clickid';
 }

@@ -2,30 +2,33 @@
 
 namespace Linktracker\Tracking\Observer;
 
+use Linktracker\Tracking\Model\Cookie;
+use Linktracker\Tracking\Model\TrackingFactory;
+use Linktracker\Tracking\Model\TrackingRepository;
 use Magento\Framework\Event\Observer;
 use Linktracker\Tracking\Api\Config as StatusConfig;
 
 class Track implements \Magento\Framework\Event\ObserverInterface
 {
     /**
-     * @var \Linktracker\Tracking\Model\TrackingRepository
+     * @var TrackingRepository
      */
     protected $trackingRepository;
 
     /**
-     * @var \Linktracker\Tracking\Model\Cookie
+     * @var Cookie
      */
     protected $cookie;
 
     /**
-     * @var \Linktracker\Tracking\Model\TrackingFactory
+     * @var TrackingFactory
      */
     protected $tracking;
 
     public function __construct(
-        \Linktracker\Tracking\Model\TrackingRepository $trackingRepository,
-        \Linktracker\Tracking\Model\TrackingFactory $tracking,
-        \Linktracker\Tracking\Model\Cookie $cookie
+        TrackingRepository $trackingRepository,
+        TrackingFactory $tracking,
+        Cookie $cookie
     ) {
         $this->trackingRepository = $trackingRepository;
         $this->cookie = $cookie;
@@ -34,11 +37,11 @@ class Track implements \Magento\Framework\Event\ObserverInterface
 
     public function execute(Observer $observer)
     {
-        if (! $this->cookie->hasCookie()) {
+        if (! $this->cookie->exists()) {
             return;
         }
 
-        $trackingId = $this->cookie->getCookie();
+        $trackingId = $this->cookie->getValue();
         $order = $observer->getEvent()->getData('order');
         $this->saveTracking(
             $trackingId,

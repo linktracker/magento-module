@@ -3,64 +3,99 @@
 namespace Linktracker\Tracking\Model;
 
 use Linktracker\Tracking\Api\Config as CookieConfig;
+use Magento\Framework\Session\Config\ConfigInterface;
 use Magento\Framework\Stdlib\Cookie\CookieMetadata;
+use Magento\Framework\Stdlib\Cookie\CookieMetadataFactory;
+use Magento\Framework\Stdlib\CookieManagerInterface;
 
-class Cookie
+class Cookie implements CookieInterface
 {
     /**
-     * @var \Magento\Framework\Stdlib\CookieManagerInterface
+     * @var CookieManagerInterface
      */
     protected $cookieManager;
 
     /**
-     * @var \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory
+     * @var CookieMetadataFactory
      */
     protected $cookieMetadata;
 
     /**
-     * @var \Magento\Framework\Session\SessionManagerInterface
+     * @var string
      */
-    protected $sessionManager;
+    private $cookieName;
+    /**
+     * @var float|int
+     */
+    private $cookieDuration;
+    /**
+     * @var ConfigInterface
+     */
+    private $cookieConfig;
 
+    /**
+     * Cookie constructor.
+     * @param CookieManagerInterface $cookieManager
+     * @param CookieMetadataFactory $cookieMetadata
+     * @param ConfigInterface $cookieConfig
+     * @param string $cookieName
+     * @param float|int $cookieDuration
+     */
     public function __construct(
-        \Magento\Framework\Stdlib\CookieManagerInterface $cookieManager,
-        \Magento\Framework\Stdlib\Cookie\CookieMetadataFactory $cookieMetadata,
-        \Magento\Framework\Session\SessionManagerInterface $sessionManager
+        CookieManagerInterface $cookieManager,
+        CookieMetadataFactory $cookieMetadata,
+        ConfigInterface $cookieConfig,
+        string $cookieName = CookieConfig::COOKIE_NAME,
+        int $cookieDuration = CookieConfig::COOKIE_DURATION
     ) {
         $this->cookieManager = $cookieManager;
         $this->cookieMetadata = $cookieMetadata;
-        $this->sessionManager = $sessionManager;
+        $this->cookieName = $cookieName;
+        $this->cookieDuration = $cookieDuration;
+        $this->cookieConfig = $cookieConfig;
     }
 
     /**
-     * @param string $value
-     * @param int $duration
-     * @throws \Magento\Framework\Exception\InputException
-     * @throws \Magento\Framework\Stdlib\Cookie\CookieSizeLimitReachedException
-     * @throws \Magento\Framework\Stdlib\Cookie\FailureToSendException
+     * @inheritDoc
      */
-    public function setCookie(string $value, int $duration = CookieConfig::COOKIE_DURATION): void
+    public function getName(): string
     {
-        $metadata = $this->cookieMetadata
-            ->createSensitiveCookieMetadata([CookieMetadata::KEY_DURATION => $duration])
-            ->setPath($this->sessionManager->getCookiePath())
-            ->setDomain($this->sessionManager->getCookieDomain());
-        $this->cookieManager->setSensitiveCookie($this->getCookieName(), $value, $metadata);
+        return $this->cookieName;
     }
 
     /**
-     * @return string|null
+     * @inheritDoc
      */
-    public function getCookie()
+    public function getDuration(): int
     {
-        return $this->cookieManager->getCookie($this->getCookieName());
+        return $this->cookieDuration;
     }
 
-    public function hasCookie(): bool {
-        return empty($this->cookieManager->getCookie($this->getCookieName())) ? false : true;
+    /**
+     * @inheritDoc
+     */
+    public function setValue(string $value): void
+    {
+        $metadata = $this->cookieMetadata->createSensitiveCookieMetadata([CookieMetadata::KEY_DURATION => $duration]);
+        $metadata->setPath($this->cookieConfig->getCookiePath());
+        $metadata->setDomain($this->cookieConfig->getCookieDomain());
+
+        $this->cookieManager->setSensitiveCookie($this->getName(), $value, $metadata);
     }
 
-    public function getCookieName() {
-        return CookieConfig::COOKIE_NAME;
+    /**
+     * @inheritDoc
+     */
+    public function getValue(): string
+    {
+        return $this->cookieManager->getCookie($this->getName());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function exists(): bool
+    {
+        return ! empty($this->getValue());
     }
 }

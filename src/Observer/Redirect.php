@@ -38,7 +38,7 @@ class Redirect implements \Magento\Framework\Event\ObserverInterface
             return;
         }
 
-        $this->cookie->setCookie($trackerId);
+        $this->cookie->setValue($trackerId);
 
         $this->request->setDispatched(false);
         $this->setRedirect($this->request->getOriginalPathInfo());
