@@ -55,11 +55,6 @@ class Send extends \Symfony\Component\Console\Command\Command
     {
         $output->writeln('Start sending tracking information');
 
-//        $tracking = $this->trackingRepository->getById(4);
-//        $this->trackingRepository->delete($tracking);
-
-//        $this->saveTracking('gideon', 3, 'AA3', 21.95, 1);
-//        $this->saveTracking('gideon', 4, 'AA4', 25.95, 1);
         $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
 
         $this->batchSend->execute();

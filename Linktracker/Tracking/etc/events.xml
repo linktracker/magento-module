@@ -1,8 +1,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
 
-    <event name="controller_action_predispatch">
-        <observer name="linktracker_redirect" instance="Linktracker\Tracking\Observer\Redirect"/>
+    <event name="checkout_submit_all_after">
+        <observer name="linktracker_checkout_submit_all_after" instance="Linktracker\Tracking\Observer\Track"/>
     </event>
 
 </config>

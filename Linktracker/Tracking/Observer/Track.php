@@ -2,7 +2,6 @@
 
 namespace Linktracker\Tracking\Observer;
 
-use Linktracker\Tracking\Model\Tracking;
 use Magento\Framework\Event\Observer;
 use Linktracker\Tracking\Api\Config as StatusConfig;
 
@@ -40,7 +39,13 @@ class Track implements \Magento\Framework\Event\ObserverInterface
         }
 
         $trackingId = $this->cookie->getCookie();
-//        $this->saveTracking($trackingId);
+        $order = $observer->getEvent()->getData('order');
+        $this->saveTracking(
+            $trackingId,
+            $order->getId(),
+            $order->getIncrementId(),
+            $order->getGrandTotal(),
+            StatusConfig::STATUS_NEW);
     }
 
     public function saveTracking(
