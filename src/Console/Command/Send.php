@@ -2,45 +2,34 @@
 
 namespace Linktracker\Tracking\Console\Command;
 
+use Linktracker\Tracking\Model\BatchSendInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputOption;
 
-class Send extends \Symfony\Component\Console\Command\Command
+/**
+ * Class Send
+ * @codeCoverageIgnore
+ */
+class Send extends Command
 {
     /**
-     * @var \Linktracker\Tracking\Model\BatchSend
+     * @var BatchSendInterface
      */
     protected $batchSend;
 
     /**
-     * @var \Magento\Framework\App\State
+     * Send constructor.
+     * @param BatchSendInterface $batchSend
+     * @param string|null $name
      */
-    protected $state;
-
-    /**
-     * @var \Linktracker\Tracking\Model\TrackingRepository
-     */
-    protected $trackingRepository;
-
-    /**
-     * @var \Linktracker\Tracking\Model\TrackingFactory
-     */
-    protected $tracking;
-
     public function __construct(
-        \Linktracker\Tracking\Model\BatchSend $batchSend,
-        \Linktracker\Tracking\Model\TrackingRepository $trackingRepository,
-        \Linktracker\Tracking\Model\TrackingFactory $tracking,
-        \Magento\Framework\App\State $state,
+        BatchSendInterface $batchSend,
         string $name = null
     ) {
         parent::__construct($name);
 
         $this->batchSend = $batchSend;
-        $this->state = $state;
-        $this->trackingRepository = $trackingRepository;
-        $this->tracking = $tracking;
     }
 
     protected function configure()
@@ -55,27 +44,9 @@ class Send extends \Symfony\Component\Console\Command\Command
     {
         $output->writeln('Start sending tracking information');
 
-        $this->state->setAreaCode(\Magento\Framework\App\Area::AREA_ADMINHTML);
-
         $this->batchSend->execute();
 
         $output->writeln('Finished sending tracking information');
     }
 
-    public function saveTracking(
-        string $trackingId,
-        int $orderId,
-        string $orderIncrementId,
-        float $orderAmount,
-        int $status
-    ) {
-        /* @var \Linktracker\Tracking\Model\Tracking $tracking */
-        $tracking = $this->tracking->create();
-        $tracking->setTrackingId($trackingId);
-        $tracking->setOrderId($orderId);
-        $tracking->setOrderIncrementId($orderIncrementId);
-        $tracking->setGrandTotal($orderAmount);
-        $tracking->setStatus($status);
-        $this->trackingRepository->save($tracking);
-    }
 }
