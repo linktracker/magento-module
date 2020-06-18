@@ -7,6 +7,8 @@
     <preference for="Linktracker\Tracking\Api\Data\TrackingSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
     <preference for="Linktracker\Tracking\Api\TrackingClientInterface" type="Linktracker\Tracking\Model\Client"/>
 
+    <preference for="Linktracker\Tracking\Model\BatchSendInterface" type="Linktracker\Tracking\Model\BatchSend" />
+
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
             <argument name="commands" xsi:type="array">

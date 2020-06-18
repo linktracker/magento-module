@@ -2,6 +2,7 @@
 
 namespace Linktracker\Tracking\Cron;
 
+use Linktracker\Tracking\Model\BatchSendInterface;
 use Psr\Log\LoggerInterface;
 
 class Send
@@ -12,18 +13,17 @@ class Send
     protected $logger;
 
     /**
-     * @var \Linktracker\Tracking\Model\BatchSend
+     * @var BatchSendInterface
      */
     protected $batchSend;
 
     /**
      * Send constructor.
-     * @param \Linktracker\Tracking\Model\BatchSend $batchSend
+     * @param BatchSendInterface $batchSend
      * @param LoggerInterface $logger
      */
-    public function __construct
-    (
-        \Linktracker\Tracking\Model\BatchSend $batchSend,
+    public function __construct(
+        BatchSendInterface $batchSend,
         LoggerInterface $logger
     ) {
         $this->batchSend = $batchSend;
