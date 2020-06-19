@@ -208,6 +208,7 @@ class RedirectTest extends TestCase
             ['/something?other=something&' . ConfigInterface::TRACKING_REQUEST_PARAMETER . '=12345', '/something?other=something'],
             ['/something?' . ConfigInterface::TRACKING_REQUEST_PARAMETER . '=12345&other=something', '/something?other=something'],
             ['/something?param1=value1&' . ConfigInterface::TRACKING_REQUEST_PARAMETER . '=12345&other=something', '/something?param1=value1&other=something'],
+            ['/something?' . ConfigInterface::TRACKING_REQUEST_PARAMETER . '=12345&sim' . ConfigInterface::TRACKING_REQUEST_PARAMETER . '=12345', '/something?sim' . ConfigInterface::TRACKING_REQUEST_PARAMETER . '=12345'],
         ];
     }
 
