@@ -8,11 +8,6 @@ use TrackingInterface\Tracking\Api\Data\TrackingExtensionInterface;
 
 class Tracking extends AbstractExtensibleModel implements TrackingInterface
 {
-    const TRACKING_ID = 'tracking_id';
-    const ORDER_ID = 'order_id';
-    const ORDER_INCREMENTED_ID = 'order_increment_id';
-    const GRAND_TOTAL = 'grand_total';
-    const STATUS = 'status';
 
     public function _construct()
     {
@@ -21,52 +16,52 @@ class Tracking extends AbstractExtensibleModel implements TrackingInterface
 
     public function getTrackingId(): string
     {
-        return $this->_getData(self::TRACKING_ID);
+        return $this->_getData(static::TRACKING_ID);
     }
 
     public function setTrackingId(string $trackingId): void
     {
-        $this->setData(self::TRACKING_ID, $trackingId);
+        $this->setData(static::TRACKING_ID, $trackingId);
     }
 
     public function getOrderId(): int
     {
-        return $this->_getData(self::ORDER_ID);
+        return $this->_getData(static::ORDER_ID);
     }
 
     public function setOrderId(int $orderId): void
     {
-        $this->setData(self::ORDER_ID, $orderId);
+        $this->setData(static::ORDER_ID, $orderId);
     }
 
     public function getOrderIncrementId(): string
     {
-        return $this->_getData(self::ORDER_INCREMENTED_ID);
+        return $this->_getData(static::ORDER_INCREMENTED_ID);
     }
 
     public function setOrderIncrementId(string $incrementedOrderId): void
     {
-        $this->setData(self::ORDER_INCREMENTED_ID, $incrementedOrderId);
+        $this->setData(static::ORDER_INCREMENTED_ID, $incrementedOrderId);
     }
 
     public function getGrandTotal(): float
     {
-        return $this->_getData(self::GRAND_TOTAL);
+        return $this->_getData(static::GRAND_TOTAL);
     }
 
     public function setGrandTotal(float $grandTotal): void
     {
-        $this->setData(self::GRAND_TOTAL, $grandTotal);
+        $this->setData(static::GRAND_TOTAL, $grandTotal);
     }
 
     public function getStatus(): int
     {
-        return $this->_getData(self::STATUS);
+        return $this->_getData(static::STATUS);
     }
 
     public function setStatus(int $status): void
     {
-        $this->setData(self::STATUS, $status);
+        $this->setData(static::STATUS, $status);
     }
 
     public function getExtensionAttributes()
