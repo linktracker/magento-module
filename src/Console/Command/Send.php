@@ -34,8 +34,8 @@ class Send extends Command
 
     protected function configure()
     {
-        $this->setName('linktracker:send')
-            ->setDescription('Notify about orders missing');
+        $this->setName('linktracker:send');
+        $this->setDescription('Notify about orders missing');
 
         parent::configure();
     }
