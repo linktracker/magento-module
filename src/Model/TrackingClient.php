@@ -6,7 +6,7 @@ use Linktracker\Tracking\Api\ConfigInterface as TrackingConfig;
 use Linktracker\Tracking\Api\TrackingClientInterface;
 use Psr\Log\LoggerInterface;
 
-class Client implements TrackingClientInterface
+class TrackingClient implements TrackingClientInterface
 {
 
     /**

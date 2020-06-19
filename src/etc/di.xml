@@ -5,7 +5,7 @@
     <preference for="Linktracker\Tracking\Api\TrackingRepositoryInterface" type="Linktracker\Tracking\Model\TrackingRepository"/>
     <preference for="Linktracker\Tracking\Api\Data\TrackingInterface" type="Linktracker\Tracking\Model\Tracking"/>
     <preference for="Linktracker\Tracking\Api\Data\TrackingSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
-    <preference for="Linktracker\Tracking\Api\TrackingClientInterface" type="Linktracker\Tracking\Model\Client"/>
+    <preference for="Linktracker\Tracking\Api\TrackingClientInterface" type="Linktracker\Tracking\Model\TrackingClient"/>
 
     <preference for="Linktracker\Tracking\Model\BatchSendInterface" type="Linktracker\Tracking\Model\BatchSend" />
     <preference for="Linktracker\Tracking\Model\CookieInterface" type="Linktracker\Tracking\Model\Cookie" />
