@@ -24,14 +24,13 @@ class Send implements SendInterface
         $this->trackingClient = $trackingClient;
     }
 
-    public function sendTrackingData(string $trackerId, string $orderId, float $orderAmount): bool
+    public function sendTrackingData(string $trackingCode, string $incrementId, float $orderAmount, int $storeId): bool
     {
-        return $this->trackingClient->send($this->config->getTrackingUrl(), [
-                TrackingConfig::API_PARAM_ID => $trackerId,
-                TrackingConfig::API_PARAM_ORDER_ID => $orderId,
+        return $this->trackingClient->send($this->config->getTrackingUrl($storeId), [
+                TrackingConfig::API_PARAM_ID => $trackingCode,
+                TrackingConfig::API_PARAM_ORDER_ID => $incrementId,
                 TrackingConfig::API_PARAM_AMOUNT => $orderAmount
             ]
         );
     }
-
 }
