@@ -13,8 +13,7 @@ class Track implements ObserverInterface
     /**
      * @var TrackingRepositoryInterface
      */
-    protected $trackingRepository;
-
+    private $trackingRepository;
     /**
      * @var CookieInterface
      */

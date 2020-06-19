@@ -4,6 +4,7 @@
     <default>
         <linktracker>
             <general>
+                <enabled>1</enabled>
                 <tracking_url>https://linktracker.io/pixel.php</tracking_url>
             </general>
         </linktracker>

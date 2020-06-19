@@ -13,13 +13,11 @@ class Cookie implements CookieInterface
     /**
      * @var CookieManagerInterface
      */
-    protected $cookieManager;
-
+    private $cookieManager;
     /**
      * @var CookieMetadataFactory
      */
-    protected $cookieMetadata;
-
+    private $cookieMetadata;
     /**
      * @var string
      */

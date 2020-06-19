@@ -16,7 +16,7 @@ class Send extends Command
     /**
      * @var BatchSendInterface
      */
-    protected $batchSend;
+    private $batchSend;
 
     /**
      * Send constructor.

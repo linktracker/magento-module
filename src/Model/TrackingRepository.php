@@ -18,27 +18,23 @@ class TrackingRepository implements TrackingRepositoryInterface
     /**
      * @var TrackingInterfaceFactory
      */
-    protected $trackingFactory;
-
+    private $trackingFactory;
     /**
      * @var TrackingCollectionFactory
      */
-    protected $trackingCollectionFactory;
-
+    private $trackingCollectionFactory;
     /**
      * @var TrackingSearchResultInterfaceFactory
      */
-    protected $trackingSearchResultInterfaceFactory;
-
+    private $trackingSearchResultInterfaceFactory;
     /**
      * @var CollectionProcessorInterface
      */
-    protected $collectionProcessor;
-
+    private $collectionProcessor;
     /**
      * @var Linktracker\Tracking\Model\ResourceModel\Tracking
      */
-    protected $resourceModel;
+    private $resourceModel;
 
     public function __construct(
         TrackingInterfaceFactory $trackingFactory,

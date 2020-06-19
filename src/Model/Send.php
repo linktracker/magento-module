@@ -3,22 +3,22 @@
 namespace Linktracker\Tracking\Model;
 
 use Linktracker\Tracking\Api\ConfigInterface as TrackingConfig;
+use Linktracker\Tracking\Api\TrackingClientInterface;
 
-class Send
+class Send implements SendInterface
 {
     /**
-     * @var \Linktracker\Tracking\Model\Config
+     * @var ConfigInterface
      */
-    protected $config;
-
+    private $config;
     /**
-     * @var \Linktracker\Tracking\Api\TrackingClientInterface
+     * @var TrackingClientInterface
      */
-    protected $trackingClient;
+    private $trackingClient;
 
     public function __construct(
-        \Linktracker\Tracking\Model\Config $config,
-        \Linktracker\Tracking\Api\TrackingClientInterface $trackingClient
+        ConfigInterface $config,
+        TrackingClientInterface $trackingClient
     ) {
         $this->config = $config;
         $this->trackingClient = $trackingClient;
@@ -26,16 +26,12 @@ class Send
 
     public function sendTrackingData(string $trackerId, string $orderId, float $orderAmount): bool
     {
-        return $this->trackingClient->send($this->getTrakingUrl(), [
-                TrackingConfig::TRACKING_REQUEST_PARAMETER => $trackerId,
-                'order_id' => $orderId,
-                'order_amount' => $orderAmount
+        return $this->trackingClient->send($this->config->getTrackingUrl(), [
+                TrackingConfig::API_PARAM_ID => $trackerId,
+                TrackingConfig::API_PARAM_ORDER_ID => $orderId,
+                TrackingConfig::API_PARAM_AMOUNT => $orderAmount
             ]
         );
     }
 
-    public function getTrakingUrl(): string
-    {
-        return (string)$this->config->getGeneralConfigValue('tracking_url');
-    }
 }

@@ -3,28 +3,28 @@
 namespace Linktracker\Tracking\Model;
 
 use Linktracker\Tracking\Api\ConfigInterface as StatusConfig;
+use Linktracker\Tracking\Api\TrackingRepositoryInterface;
+use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class BatchSend implements BatchSendInterface
 {
     /**
      * @var Send
      */
-    protected $send;
-
+    private $send;
     /**
      * @var TrackingRepository
      */
-    protected $trackingRepository;
-
+    private $trackingRepository;
     /**
-     * @var \Magento\Framework\Api\SearchCriteriaBuilder
+     * @var SearchCriteriaBuilder
      */
-    protected $searchCriteriaBuilder;
+    private $searchCriteriaBuilder;
 
     public function __construct(
-        \Linktracker\Tracking\Model\Send $send,
-        \Linktracker\Tracking\Model\TrackingRepository $trackingRepository,
-        \Magento\Framework\Api\SearchCriteriaBuilder $searchCriteriaBuilder
+        Send $send,
+        TrackingRepositoryInterface $trackingRepository,
+        SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
         $this->send = $send;
         $this->trackingRepository = $trackingRepository;

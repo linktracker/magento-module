@@ -10,12 +10,12 @@ class Send
     /**
      * @var LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     /**
      * @var BatchSendInterface
      */
-    protected $batchSend;
+    private $batchSend;
 
     /**
      * Send constructor.
