@@ -2,36 +2,45 @@
 
 namespace Linktracker\Tracking\Model;
 
-class Client implements \Linktracker\Tracking\Api\TrackingClientInterface
+use Linktracker\Tracking\Api\ConfigInterface as TrackingConfig;
+use Linktracker\Tracking\Api\TrackingClientInterface;
+use Psr\Log\LoggerInterface;
+
+class Client implements TrackingClientInterface
 {
-    const TIME_OUT = 20; //seconds
 
     /**
-     * @var \Psr\Log\LoggerInterface
+     * @var LoggerInterface
      */
-    protected $logger;
+    private $logger;
 
     public function __construct(
-        \Psr\Log\LoggerInterface $logger
-    )
-    {
+        LoggerInterface $logger
+    ) {
         $this->logger = $logger;
     }
 
-    public function send(string $url, array $data): bool
+    public function send(string $url, array $data, int $timeout = TrackingConfig::API_CONNECTION_TIMEOUT): bool
     {
-        $ctx = stream_context_create(array('http'=>
-            array(
-                'timeout' => self::TIME_OUT
-            )
-        ));
-
         try {
+            $ctx = stream_context_create([
+                    'http'=>
+                        [
+                            'timeout' => $timeout
+                        ]
+                ]
+            );
+
             $urlString = $url . '?' . http_build_query($data);
-            return file_get_contents($urlString, false, $ctx) === false ? false : true;
+            $result = file_get_contents($urlString, false, $ctx) === false ? false : true;
+
+            $this->logger->debug(sprintf('Send message to "%s" with result %s', $urlString, (string)$result));
+
+            return $result;
         } catch (\Exception $exception) {
             $this->logger->error($exception->getMessage());
-            return false;
         }
+
+        return false;
     }
 }
