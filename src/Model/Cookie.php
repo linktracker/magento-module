@@ -74,7 +74,7 @@ class Cookie implements CookieInterface
      */
     public function setValue(string $value): void
     {
-        $metadata = $this->cookieMetadata->createSensitiveCookieMetadata([CookieMetadata::KEY_DURATION => $duration]);
+        $metadata = $this->cookieMetadata->createSensitiveCookieMetadata([CookieMetadata::KEY_DURATION => $this->getDuration()]);
         $metadata->setPath($this->cookieConfig->getCookiePath());
         $metadata->setDomain($this->cookieConfig->getCookieDomain());
 
@@ -86,7 +86,7 @@ class Cookie implements CookieInterface
      */
     public function getValue(): string
     {
-        return $this->cookieManager->getCookie($this->getName());
+        return (string)$this->cookieManager->getCookie($this->getName());
     }
 
     /**
