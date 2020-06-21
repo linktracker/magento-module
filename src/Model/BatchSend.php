@@ -3,13 +3,15 @@
 namespace Linktracker\Tracking\Model;
 
 use Linktracker\Tracking\Api\ConfigInterface as StatusConfig;
+use Linktracker\Tracking\Api\Data\TrackingInterface;
 use Linktracker\Tracking\Api\TrackingRepositoryInterface;
+use Magento\Framework\Api\SearchCriteria;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 
 class BatchSend implements BatchSendInterface
 {
     /**
-     * @var Send
+     * @var SendInterface
      */
     private $send;
     /**
@@ -22,7 +24,7 @@ class BatchSend implements BatchSendInterface
     private $searchCriteriaBuilder;
 
     public function __construct(
-        Send $send,
+        SendInterface $send,
         TrackingRepositoryInterface $trackingRepository,
         SearchCriteriaBuilder $searchCriteriaBuilder
     ) {
@@ -34,12 +36,14 @@ class BatchSend implements BatchSendInterface
     public function execute(): void
     {
         $items = $this->trackingRepository->getList($this->getStatusFilter(StatusConfig::STATUS_NEW));
+
+        /* @var TrackingInterface $item */
         foreach ($items->getItems() as $item) {
-            /* @var \Linktracker\Tracking\Model\Tracking $item */
             $result = $this->send->sendTrackingData(
                 $item->getTrackingId(),
                 $item->getOrderIncrementId(),
-                $item->getGrandTotal()
+                $item->getGrandTotal(),
+                $item->getStoreId()
             );
 
             $status = $result ? StatusConfig::STATUS_SEND : StatusConfig::STATUS_FAILED;
@@ -47,7 +51,7 @@ class BatchSend implements BatchSendInterface
         }
     }
 
-    public function updateStatus(\Linktracker\Tracking\Model\Tracking $item, int $status): void
+    public function updateStatus(TrackingInterface $item, int $status): void
     {
         $item->setStatus($status);
         $this->trackingRepository->save($item);
@@ -55,10 +59,12 @@ class BatchSend implements BatchSendInterface
 
     /**
      * @param int $statusId
-     * @return \Magento\Framework\Api\SearchCriteria
+     * @return SearchCriteria
      */
-    public function getStatusFilter(int $statusId): \Magento\Framework\Api\SearchCriteria
+    public function getStatusFilter(int $statusId): SearchCriteria
     {
-        return $this->searchCriteriaBuilder->addFilter('status', $statusId)->create();
+        return $this->searchCriteriaBuilder
+                ->addFilter('status', $statusId)
+                ->create();
     }
 }
