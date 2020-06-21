@@ -43,7 +43,8 @@ class Track implements ObserverInterface
             $trackingId,
             $order->getEntityId(),
             $order->getIncrementId(),
-            $order->getGrandTotal()
+            $order->getGrandTotal(),
+            $order->getStoreId()
         );
 
         $repository->save($tracking);

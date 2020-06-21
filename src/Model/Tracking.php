@@ -64,6 +64,16 @@ class Tracking extends AbstractExtensibleModel implements TrackingInterface
         $this->setData(static::STATUS, $status);
     }
 
+    public function getStoreId(): int
+    {
+        return $this->_getData(static::STORE_ID);
+    }
+
+    public function setStoreId(int $storeId): void
+    {
+        $this->setData(static::STORE_ID, $storeId);
+    }
+
     public function getExtensionAttributes()
     {
         return $this->_getExtensionAttributes();

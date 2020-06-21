@@ -6,11 +6,12 @@ use Magento\Framework\Api\ExtensibleDataInterface;
 
 interface TrackingInterface extends ExtensibleDataInterface
 {
-    public const TRACKING_ID = 'tracking_id';
-    public const ORDER_ID = 'order_id';
-    public const ORDER_INCREMENTED_ID = 'order_increment_id';
-    public const GRAND_TOTAL = 'grand_total';
-    public const STATUS = 'status';
+    public const TRACKING_ID            = 'tracking_id';
+    public const ORDER_ID               = 'order_id';
+    public const ORDER_INCREMENTED_ID   = 'order_increment_id';
+    public const GRAND_TOTAL            = 'grand_total';
+    public const STORE_ID               = 'store_id';
+    public const STATUS                 = 'status';
 
     public function getId();
 
@@ -31,6 +32,10 @@ interface TrackingInterface extends ExtensibleDataInterface
     public function getGrandTotal(): float;
 
     public function setGrandTotal(float $grandTotal): void;
+
+    public function getStoreId(): int;
+
+    public function setStoreId(int $storeId): void;
 
     public function getStatus(): int;
 

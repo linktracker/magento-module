@@ -41,14 +41,16 @@ interface TrackingRepositoryInterface
      * @param int $orderId
      * @param string $orderIncrementId
      * @param float $amount
+     * @param int $storeId
      * @param int $status
      * @return TrackingInterface
      */
     public function createTracking(
             string $trackingCode,
             int $orderId,
-            string $orderIncrementId = '',
-            float $amount = 0.0,
+            string $orderIncrementId,
+            float $amount,
+            int $storeId,
             int $status = ConfigInterface::STATUS_NEW
     ): TrackingInterface;
 

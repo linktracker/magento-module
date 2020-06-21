@@ -10,6 +10,8 @@
         <column xsi:type="varchar" name="order_increment_id" nullable="true" length="32" comment="Order Increment ID"/>
         <column xsi:type="decimal" name="grand_total" scale="4" precision="20" unsigned="false" nullable="true"
                 comment="Grand Total"/>
+        <column xsi:type="smallint" name="store_id" padding="5" unsigned="true" nullable="false"
+                comment="Store ID"/>
         <column xsi:type="timestamp" name="created_at" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"
                 comment="Created At"/>
         <column xsi:type="tinyint" name="status" padding="2" unsigned="true" nullable="false" identity="false"

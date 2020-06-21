@@ -74,9 +74,13 @@ class TrackTest extends TestCase
                 ->method('getGrandTotal')
                 ->willReturn(10.00);
 
+        $orderMock->expects($this->once())
+                ->method('getStoreId')
+                ->willReturn(1);
+
         $repositoryMock->expects($this->once())
                 ->method('createTracking')
-                ->with('1234', 1, '1000', 10.00);
+                ->with('1234', 1, '1000', 10.00, 1);
 
         $eventMock = $this->getMockBuilder(Event::class)
                 ->disableOriginalConstructor()

@@ -98,7 +98,7 @@ class TrackingRepository implements TrackingRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function createTracking(
+    public function createTracking2(
         string $trackingCode,
         int $orderId,
         string $orderIncrementId = '',
@@ -106,6 +106,17 @@ class TrackingRepository implements TrackingRepositoryInterface
         int $status = ConfigInterface::STATUS_NEW
     ): TrackingInterface {
 
+
+    }
+
+    public function createTracking(
+        string $trackingCode,
+        int $orderId,
+        string $orderIncrementId,
+        float $amount,
+        int $storeId,
+        int $status = ConfigInterface::STATUS_NEW
+    ): TrackingInterface {
         /* @var TrackingInterface $tracking */
         $tracking = $this->trackingFactory->create();
 
@@ -113,6 +124,7 @@ class TrackingRepository implements TrackingRepositoryInterface
         $tracking->setOrderId($orderId);
         $tracking->setOrderIncrementId($orderIncrementId);
         $tracking->setGrandTotal($amount);
+        $tracking->setStoreId($storeId);
         $tracking->setStatus($status);
 
         return $tracking;
