@@ -6,6 +6,7 @@ use Linktracker\Tracking\Api\ConfigInterface;
 use Linktracker\Tracking\Api\Data\TrackingSearchResultInterface;
 use Linktracker\Tracking\Api\TrackingRepositoryInterface;
 use Linktracker\Tracking\Api\Data\TrackingInterface;
+use Linktracker\Tracking\Api\Data\TrackingInterfaceFactory;
 use Linktracker\Tracking\Api\Data\TrackingSearchResultInterfaceFactory;
 use Linktracker\Tracking\Model\ResourceModel\Tracking as TrackingResource;
 use Linktracker\Tracking\Model\ResourceModel\Tracking\CollectionFactory as TrackingCollectionFactory;
