@@ -14,11 +14,17 @@ class Track implements ObserverInterface
      * @var TrackingRepositoryInterface
      */
     private $trackingRepository;
+
     /**
      * @var CookieInterface
      */
     private $cookie;
 
+    /**
+     * Track constructor.
+     * @param TrackingRepositoryInterface $trackingRepository
+     * @param CookieInterface $cookie
+     */
     public function __construct(
         TrackingRepositoryInterface $trackingRepository,
         CookieInterface $cookie
@@ -32,9 +38,10 @@ class Track implements ObserverInterface
         if (! $this->cookie->exists()) {
             return;
         }
+
         /** @var OrderInterface $order */
         $order = $observer->getEvent()
-                ->getData('order');
+            ->getData('order');
 
         $trackingId = $this->cookie->getValue();
 

@@ -6,9 +6,10 @@
     <preference for="Linktracker\Tracking\Api\Data\TrackingInterface" type="Linktracker\Tracking\Model\Tracking"/>
     <preference for="Linktracker\Tracking\Api\Data\TrackingSearchResultInterface" type="Magento\Framework\Api\SearchResults"/>
     <preference for="Linktracker\Tracking\Api\TrackingClientInterface" type="Linktracker\Tracking\Model\TrackingClient"/>
-
     <preference for="Linktracker\Tracking\Model\BatchSendInterface" type="Linktracker\Tracking\Model\BatchSend" />
+    <preference for="Linktracker\Tracking\Model\SendInterface" type="Linktracker\Tracking\Model\Send" />
     <preference for="Linktracker\Tracking\Model\CookieInterface" type="Linktracker\Tracking\Model\Cookie" />
+    <preference for="Linktracker\Tracking\Model\ConfigInterface" type="Linktracker\Tracking\Model\Config" />
 
     <type name="Magento\Framework\Console\CommandList">
         <arguments>
