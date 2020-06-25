@@ -4,16 +4,14 @@ namespace Linktracker\Tracking\Api\Data;
 
 use Magento\Framework\Api\SearchResultsInterface;
 
+/**
+ * Interface TrackingSearchResultInterface
+ * @package Linktracker\Tracking\Api\Data
+ *
+ * @method getItems() TrackingInterface[]
+ * @method setItems(TrackingInterface[] $items) void
+ */
 interface TrackingSearchResultInterface extends SearchResultsInterface
 {
-    /**
-     * @return \Linktracker\Tracking\Api\Data\TrackingInterface[]
-     */
-    public function getItems();
 
-    /**
-     * @param \Linktracker\Tracking\Api\Data\TrackingInterface[] $items
-     * @return void
-     */
-    public function setItems(array $items);
 }
