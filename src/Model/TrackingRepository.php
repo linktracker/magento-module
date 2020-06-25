@@ -3,6 +3,7 @@
 namespace Linktracker\Tracking\Model;
 
 use Linktracker\Tracking\Api\ConfigInterface;
+use Linktracker\Tracking\Api\Data\TrackingSearchResultInterface;
 use Linktracker\Tracking\Api\TrackingRepositoryInterface;
 use Linktracker\Tracking\Api\Data\TrackingInterface;
 use Linktracker\Tracking\Api\Data\TrackingSearchResultInterfaceFactory;
@@ -87,10 +88,12 @@ class TrackingRepository implements TrackingRepositoryInterface
         /* @var Collection $collection */
         $collection = $this->trackingCollectionFactory->create();
         $this->collectionProcessor->process($searchCriteria, $collection);
+
+        /** @var TrackingSearchResultInterface $searchResults */
         $searchResults = $this->trackingSearchResultInterfaceFactory->create();
 
         $searchResults->setSearchCriteria($searchCriteria);
-        $searchResults->setItems($collection->getItems());
+        $searchResults->setItems((array)$collection->getItems());
 
         return $searchResults;
     }
