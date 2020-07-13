@@ -1,5 +1,5 @@
 {
-    "name": "linktracker/tracking",
+    "name": "linktracker/module-tracking",
     "description": "Linktracker customer referral tracking",
     "type": "magento2-module",
     "license": "MIT",
