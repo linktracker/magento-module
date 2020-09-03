@@ -4,7 +4,7 @@ namespace Linktracker\Tracking\Model;
 
 use Magento\Framework\Model\AbstractExtensibleModel;
 use Linktracker\Tracking\Api\Data\TrackingInterface;
-use TrackingInterface\Tracking\Api\Data\TrackingExtensionInterface;
+use Linktracker\Tracking\Api\Data\TrackingExtensionInterface;
 
 class Tracking extends AbstractExtensibleModel implements TrackingInterface
 {

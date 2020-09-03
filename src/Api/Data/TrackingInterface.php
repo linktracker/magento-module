@@ -44,15 +44,15 @@ interface TrackingInterface extends ExtensibleDataInterface
     /**
      * Retrieve existing extension attributes object or create a new one.
      *
-     * @return \TrackingInterface\Tracking\Api\Data\TrackingExtensionInterface|null
+     * @return \Linktracker\Tracking\Api\Data\TrackingExtensionInterface|null
      */
     public function getExtensionAttributes();
 
     /**
      * Set an extension attributes object.
      *
-     * @param \TrackingInterface\Tracking\Api\Data\TrackingExtensionInterface $extensionAttributes
+     * @param \Linktracker\Tracking\Api\Data\TrackingExtensionInterface $extensionAttributes
      * @return $this
      */
-    public function setExtensionAttributes(\TrackingInterface\Tracking\Api\Data\TrackingExtensionInterface $extensionAttributes);
+    public function setExtensionAttributes(\Linktracker\Tracking\Api\Data\TrackingExtensionInterface $extensionAttributes);
 }
