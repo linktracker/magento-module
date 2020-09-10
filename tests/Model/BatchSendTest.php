@@ -85,9 +85,4 @@ class BatchSendTest extends TestCase
 
         $this->assertInstanceOf(SearchCriteria::class, $batchSend->getStatusFilter(TrackingConfig::STATUS_NEW));
     }
-
-    public function testExecute()
-    {
-
-    }
 }
