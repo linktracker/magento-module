@@ -12,6 +12,7 @@ interface TrackingInterface extends ExtensibleDataInterface
     public const GRAND_TOTAL            = 'grand_total';
     public const STORE_ID               = 'store_id';
     public const STATUS                 = 'status';
+    public const CREATED_AT             = 'created_at';
 
     public function getId();
 
@@ -40,6 +41,8 @@ interface TrackingInterface extends ExtensibleDataInterface
     public function getStatus(): int;
 
     public function setStatus(int $status): void;
+
+    public function getCreatedAt(): string;
 
     /**
      * Retrieve existing extension attributes object or create a new one.
