@@ -3,6 +3,7 @@
 namespace Linktracker\Tracking\Model;
 
 use Linktracker\Tracking\Api\ConfigInterface as TrackingConfig;
+use Linktracker\Tracking\Api\Data\TrackingInterface;
 use Linktracker\Tracking\Api\TrackingClientInterface;
 
 class Send implements SendInterface
@@ -24,12 +25,12 @@ class Send implements SendInterface
         $this->trackingClient = $trackingClient;
     }
 
-    public function sendTrackingData(string $trackingCode, string $incrementId, float $orderAmount, int $storeId): bool
+    public function sendTrackingData(TrackingInterface $tracking): bool
     {
-        return $this->trackingClient->send($this->config->getTrackingUrl($storeId), [
-                TrackingConfig::API_PARAM_ID => $trackingCode,
-                TrackingConfig::API_PARAM_ORDER_ID => $incrementId,
-                TrackingConfig::API_PARAM_AMOUNT => $orderAmount
+        return $this->trackingClient->send($this->config->getTrackingUrl($tracking->getStoreId()), [
+                TrackingConfig::API_PARAM_ID => $tracking->getTrackingId(),
+                TrackingConfig::API_PARAM_ORDER_ID => $tracking->getOrderIncrementId(),
+                TrackingConfig::API_PARAM_AMOUNT => $tracking->getGrandTotal(),
             ]
         );
     }

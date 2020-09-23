@@ -39,12 +39,7 @@ class BatchSend implements BatchSendInterface
 
         /* @var TrackingInterface $item */
         foreach ($items->getItems() as $item) {
-            $result = $this->send->sendTrackingData(
-                $item->getTrackingId(),
-                $item->getOrderIncrementId(),
-                $item->getGrandTotal(),
-                $item->getStoreId()
-            );
+            $result = $this->send->sendTrackingData($item);
 
             $status = $result ? StatusConfig::STATUS_SEND : StatusConfig::STATUS_FAILED;
             $this->updateStatus($item, $status);
