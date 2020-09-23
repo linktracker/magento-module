@@ -40,8 +40,8 @@ class SendTest extends TestCase
     public function dataProviderSendTrackingData(): array
     {
         return [
-            [true, '12345', '100000123', 12.00, 1],
-            [false, '12345', '100000124', 10.00, 0]
+            [true, '12345', '100000123', 12.00, 1, '2020-09-23 13:00:00'],
+            [false, '12345', '100000124', 10.00, 0, '2020-09-23 13:04:01']
         ];
     }
 
@@ -53,8 +53,9 @@ class SendTest extends TestCase
      * @param string $incrementId
      * @param float $orderAmount
      * @param int $storeId
+     * @param string $timestampUTC
      */
-    public function testSendTrackingData(bool $result, string $trackingCode, string $incrementId, float $orderAmount, int $storeId)
+    public function testSendTrackingData(bool $result, string $trackingCode, string $incrementId, float $orderAmount, int $storeId, string $timestampUTC)
     {
         $configMock = $this->configMock;
         $trackingClientMock = $this->trackingClientMock;
@@ -72,6 +73,9 @@ class SendTest extends TestCase
         $trackingMock->expects($this->once())
                 ->method('getStoreId')
                 ->willReturn($storeId);
+        $trackingMock->expects($this->once())
+                ->method('getCreatedAt')
+                ->willReturn($timestampUTC);
 
         $configMock->expects($this->once())
                 ->method('getTrackingUrl')
@@ -85,7 +89,8 @@ class SendTest extends TestCase
                     [
                         TrackingConfig::API_PARAM_ID => $trackingCode,
                         TrackingConfig::API_PARAM_ORDER_ID => $incrementId,
-                        TrackingConfig::API_PARAM_AMOUNT => $orderAmount
+                        TrackingConfig::API_PARAM_AMOUNT => $orderAmount,
+                        TrackingConfig::API_PARAM_TIMESTAMP => $this->formatTimestamp($timestampUTC)
                     ]
                 )
                 ->willReturn($result);
@@ -97,5 +102,34 @@ class SendTest extends TestCase
 
         $this->assertSame($result, $send->sendTrackingData($trackingMock));
     }
+
+    public function testConvertCreatedAtToTimestamp()
+    {
+        $configMock = $this->configMock;
+        $trackingClientMock = $this->trackingClientMock;
+
+        $send = new Send(
+            $configMock,
+            $trackingClientMock
+        );
+
+        $timestamp = '2020-09-23 14:12:15';
+//        $this->assertSame('20200923.161215', $send->convertCreatedAtToTimestamp($timestamp)); // summertime
+//        $this->assertSame('20200923.151215', $send->convertCreatedAtToTimestamp($timestamp)); // wintertime
+        $this->assertSame($this->formatTimestamp($timestamp), $send->convertCreatedAtToTimestamp($timestamp));
     }
+
+    /**
+     * We need to do this, because Magento safes in UTC, summertime is +2 and wintertime +1, I don't want to builtin summer/wintertime logic(because it isn't saved information)
+     *
+     * @param string $timestamp
+     */
+    private function formatTimestamp(string $timestamp)
+    {
+        $datetime = new \DateTimeImmutable($timestamp, new \DateTimeZone('UTC'));
+        return $datetime->setTimezone(new \DateTimeZone(TrackingConfig::API_TIMESTAMP_TIMEZONE))
+                ->format('Ymd.His');
+    }
+
+
 }
