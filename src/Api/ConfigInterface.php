@@ -20,5 +20,9 @@ interface ConfigInterface
     public const API_PARAM_ORDER_ID         = 'order_id';
     public const API_PARAM_AMOUNT           = 'order_amount';
     public const API_PARAM_ID               = 'click_id';
+    public const API_PARAM_TIMESTAMP        = 't';
+
+    public const API_TIMESTAMP_TIMEZONE     = 'Europe/Amsterdam';
+    public const API_TIMESTAMP_FORMAT       = 'Ymd.His';
 
 }
